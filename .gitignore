@@ -1,0 +1,42 @@
+# Dependencies
+**/node_modules/
+
+# Package manager caches and logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+pnpm-debug.*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+web-build/
+coverage/
+
+# Expo / React Native
+.expo/
+.expo-shared/
+*.expo
+expo-env.d.ts
+
+# TypeScript
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Backend runtime artifacts
+logs/
+tmp/
+temp/
+*.log
