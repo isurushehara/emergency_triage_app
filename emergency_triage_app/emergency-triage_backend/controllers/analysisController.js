@@ -42,10 +42,6 @@ This system is only for emergency decision support and not a final diagnosis.
     // Fallback models
     const models = [
 
-      'google/gemma-2-9b-it:free',
-
-      'mistralai/mistral-7b-instruct:free',
-
       'openrouter/free',
     ];
 
