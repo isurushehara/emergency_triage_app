@@ -9,11 +9,14 @@ import {
   Alert,
 } from 'react-native';
 
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+} from 'firebase/auth';
+
 import { router } from 'expo-router';
 
-import { auth, signInWithEmailAndPassword } from '../../services/firebase';
-
-export default function LoginScreen() {
+export default function SignupScreen() {
 
   const [email, setEmail] =
     useState('');
@@ -21,18 +24,29 @@ export default function LoginScreen() {
   const [password, setPassword] =
     useState('');
 
-  const handleLogin = async () => {
-
-    if (!auth) {
-      Alert.alert('Configuration Error', 'Authentication service not available');
-      return;
-    }
+  const handleSignup = async () => {
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('/register');
+
+      await createUserWithEmailAndPassword(
+        getAuth(),
+        email,
+        password
+      );
+
+      Alert.alert(
+        'Success',
+        'Account created successfully'
+      );
+
+      router.push('/');
+
     } catch (error: any) {
-      Alert.alert('Login Failed', error?.message ?? String(error));
+
+      Alert.alert(
+        'Signup Failed',
+        error.message
+      );
     }
   };
 
@@ -42,11 +56,11 @@ export default function LoginScreen() {
       <Text style={styles.logo}>🚑</Text>
 
       <Text style={styles.title}>
-        Emergency Triage Assistant
+        Create Account
       </Text>
 
       <Text style={styles.subtitle}>
-        AI-powered emergency patient analysis
+        Register to continue
       </Text>
 
       <TextInput
@@ -68,20 +82,18 @@ export default function LoginScreen() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={handleLogin}
+        onPress={handleSignup}
       >
         <Text style={styles.buttonText}>
-          Login
+          Sign Up
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() =>
-          router.push('/register')
-        }
+        onPress={() => router.push('/')}
       >
-        <Text style={styles.signupText}>
-          Create New Account
+        <Text style={styles.loginText}>
+          Already have an account?
         </Text>
       </TouchableOpacity>
 
@@ -143,7 +155,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  signupText: {
+  loginText: {
     marginTop: 20,
     textAlign: 'center',
     color: '#2563eb',
