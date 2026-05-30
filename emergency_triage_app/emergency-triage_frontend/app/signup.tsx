@@ -11,10 +11,11 @@ import {
 
 import {
   createUserWithEmailAndPassword,
-  getAuth,
 } from 'firebase/auth';
 
 import { router } from 'expo-router';
+
+import { auth } from '../services/firebase';
 
 export default function SignupScreen() {
 
@@ -29,7 +30,7 @@ export default function SignupScreen() {
     try {
 
       await createUserWithEmailAndPassword(
-        getAuth(),
+        auth,
         email,
         password
       );
@@ -39,7 +40,7 @@ export default function SignupScreen() {
         'Account created successfully'
       );
 
-      router.push('/');
+      router.replace('/register');
 
     } catch (error: any) {
 
@@ -90,7 +91,7 @@ export default function SignupScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => router.push('/')}
+        onPress={() => router.replace('/')}
       >
         <Text style={styles.loginText}>
           Already have an account?
